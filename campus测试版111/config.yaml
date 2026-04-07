@@ -1,0 +1,10 @@
+model_type: fake
+model_path: models/best.pt
+frame_skip: 5
+behaviors:
+  - normal
+  - fighting
+  - falling
+  - smoking
+  - phone
+  - loitering 
