@@ -26,23 +26,23 @@ def load_model():
     """加载YOLO模型"""
     global model
     
-    print("\n🔍 检查模型文件...")
+    print("\n 检查模型文件...")
     
     if not os.path.exists(MODEL_PATH):
-        print(f"❌ 错误：找不到模型文件")
+        print(f" 错误：找不到模型文件")
         print(f"   期望路径：{MODEL_PATH}")
-        print(f"\n💡 解决方案：")
+        print(f"\n 解决方案：")
         print(f"   1. 把训练好的 best.pt 放到 models/ 文件夹")
         print(f"   2. 或者修改 config.py 中的 MODEL_PATH")
         return False
     
     try:
-        print(f"📦 正在加载模型：{MODEL_PATH}")
+        print(f" 正在加载模型：{MODEL_PATH}")
         model = YOLO(MODEL_PATH)
-        print(f"✅ 模型加载成功！")
+        print(f" 模型加载成功！")
         return True
     except Exception as e:
-        print(f"❌ 模型加载失败：{str(e)}")
+        print(f" 模型加载失败：{str(e)}")
         return False
 
 # ====================== 2. 行为分析函数 ======================
@@ -94,7 +94,7 @@ def analyze_behavior(results):
                 
                 # 距离小于150像素认为是打架
                 if distance < 150:
-                    alert = "⚠️ 检测到打架行为！"
+                    alert = "检测到打架行为！"
                     break
             if alert:
                 break
@@ -111,7 +111,7 @@ def generate_frames(source, source_id, is_file=False):
     # 标记这个源正在处理
     with process_lock:
         if source_id in active_processes:
-            print(f"⚠️ 源 {source_id} 已在处理中")
+            print(f" 源 {source_id} 已在处理中")
             return
         active_processes[source_id] = True
     
@@ -122,16 +122,16 @@ def generate_frames(source, source_id, is_file=False):
         # 打开视频源
         if is_file:
             cap = cv2.VideoCapture(source)
-            print(f"📹 开始处理视频文件：{source}")
+            print(f" 开始处理视频文件：{source}")
         else:
             # 处理摄像头或RTSP流
             if isinstance(source, str) and source.isdigit():
                 source = int(source)
             cap = cv2.VideoCapture(source)
-            print(f"📹 开始处理视频流：{source}")
+            print(f" 开始处理视频流：{source}")
         
         if not cap.isOpened():
-            print(f"❌ 无法打开视频源：{source}")
+            print(f" 无法打开视频源：{source}")
             return
         
         # 主循环
@@ -139,9 +139,9 @@ def generate_frames(source, source_id, is_file=False):
             success, frame = cap.read()
             if not success:
                 if is_file:
-                    print(f"✅ 视频处理完成")
+                    print(f" 视频处理完成")
                 else:
-                    print(f"⚠️ 视频流断开")
+                    print(f" 视频流断开")
                 break
             
             frame_count += 1
@@ -187,7 +187,7 @@ def generate_frames(source, source_id, is_file=False):
             time.sleep(1 / FPS_LIMIT)
             
     except Exception as e:
-        print(f"❌ 处理出错：{str(e)}")
+        print(f" 处理出错：{str(e)}")
     
     finally:
         # 清理资源
@@ -268,7 +268,7 @@ def upload_video():
     
     source_id = f"file_{filename}"
     
-    print(f"📁 收到视频：{file.filename}")
+    print(f" 收到视频：{file.filename}")
     
     return Response(
         generate_frames(temp_path, source_id, is_file=True),
@@ -304,7 +304,7 @@ if __name__ == '__main__':
     
     if load_model():
         print("\n" + "=" * 50)
-        print("✅ 启动成功！")
+        print(" 启动成功！")
         print("=" * 50)
         print(f"📍 本地访问：http://127.0.0.1:{PORT}")
         print(f"📍 外部访问：http://你的IP:{PORT}")
@@ -312,10 +312,10 @@ if __name__ == '__main__':
         print(f"   http://127.0.0.1:{PORT}/status")
         print(f"\n🎥 视频流测试：")
         print(f"   http://127.0.0.1:{PORT}/video_feed?source=0")
-        print("\n⚠️  按 Ctrl+C 停止服务")
+        print("\n  按 Ctrl+C 停止服务")
         print("=" * 50)
         
         app.run(host=HOST, port=PORT, debug=False, threaded=True)
     else:
-        print("\n❌ 启动失败！")
+        print("\n 启动失败！")
         print("请确保 models/best.pt 文件存在")
