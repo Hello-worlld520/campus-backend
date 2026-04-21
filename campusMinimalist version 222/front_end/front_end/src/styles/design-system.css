@@ -1,0 +1,255 @@
+/* ======================
+   🌌 VisionGuard AI Design System
+   全局设计系统（终极版）
+   ====================== */
+
+:root {
+  /* ======================
+     🎯 颜色系统（核心）
+     ====================== */
+  --color-bg: #0a0d14;
+  --color-bg-soft: #0f141d;
+
+  --color-glass: rgba(255,255,255,0.06);
+  --color-glass-strong: rgba(255,255,255,0.12);
+
+  --color-border: rgba(255,255,255,0.08);
+  --color-border-strong: rgba(255,255,255,0.15);
+
+  --color-text-main: #e8ecf3;
+  --color-text-sub: rgba(255,255,255,0.65);
+  --color-text-muted: rgba(255,255,255,0.45);
+
+  /* ======================
+     🌈 品牌色（可扩展）
+     ====================== */
+  --color-primary: #5b8cff;
+  --color-primary-strong: #3f6fff;
+
+  --color-purple: #8b6cff;
+  --color-success: #34c759;
+  --color-warning: #ff9500;
+  --color-danger: #ff3b30;
+
+  /* ======================
+     ✨ 渐变系统（高级感关键）
+     ====================== */
+  --gradient-primary: linear-gradient(135deg, #5b8cff, #8b6cff);
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+
+  --gradient-border: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+
+  /* ======================
+     💡 发光系统（灵魂）
+     ====================== */
+  --glow-primary: 0 0 20px rgba(91,140,255,0.35);
+  --glow-purple: 0 0 20px rgba(139,108,255,0.35);
+
+  /* ======================
+     🧊 模糊系统
+     ====================== */
+  --blur-xl: blur(30px) saturate(180%);
+  --blur-lg: blur(20px) saturate(160%);
+  --blur-md: blur(12px) saturate(140%);
+
+  /* ======================
+     📐 圆角
+     ====================== */
+  --radius-xl: 26px;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  /* ======================
+     🪶 阴影系统
+     ====================== */
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.45);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,0.3);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.25);
+
+  /* ======================
+     🧠 字体系统
+     ====================== */
+  --font-main: "Inter", "SF Pro Display", -apple-system, system-ui, sans-serif;
+
+  /* ======================
+     ⚡ 动效曲线
+     ====================== */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ======================
+     🎥 动画时间
+     ====================== */
+  --duration-fast: 0.2s;
+  --duration-mid: 0.35s;
+  --duration-slow: 0.6s;
+}
+
+/* ======================
+   🌍 全局基础
+   ====================== */
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-main);
+}
+
+/* ======================
+   🧊 通用玻璃组件（核心复用）
+   ====================== */
+.glass {
+  background: var(--gradient-glass);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    inset 0 -1px 0 rgba(255,255,255,0.04);
+
+  position: relative;
+  overflow: hidden;
+
+  transition: all var(--duration-mid) var(--ease-out);
+}
+
+/* 顶部高光 */
+.glass::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: var(--gradient-border);
+}
+
+/* 鼠标光追（高级核心） */
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    600px circle at var(--mouse-x,50%) var(--mouse-y,50%),
+    rgba(255,255,255,0.08),
+    transparent 60%
+  );
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.glass:hover::after {
+  opacity: 1;
+}
+
+/* ======================
+   🔘 按钮系统（高级版）
+   ====================== */
+.btn {
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-weight: 600;
+
+  border: 1px solid var(--color-border);
+  background: var(--color-glass);
+
+  backdrop-filter: var(--blur-md);
+
+  transition: all var(--duration-fast) var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  background: var(--color-glass-strong);
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* 主按钮 */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--glow-primary);
+}
+
+/* ======================
+   📦 卡片
+   ====================== */
+.card {
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--color-glass);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+
+  transition: all var(--duration-mid);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ======================
+   📊 表格增强
+   ====================== */
+.table-hover tr:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(91,140,255,0.12),
+    rgba(139,108,255,0.08)
+  );
+}
+
+/* ======================
+   🖱 滚动条
+   ====================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+}
+
+/* ======================
+   🌊 动效（呼吸）
+   ====================== */
+@keyframes breathe {
+  0%,100% {
+    box-shadow: 0 0 0 rgba(91,140,255,0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(91,140,255,0.4);
+  }
+}
+
+/* ======================
+   🧠 全局光标跟随（必须配 JS）
+   ====================== */
+/*
+window.addEventListener("mousemove", e => {
+  document.documentElement.style.setProperty("--mouse-x", e.clientX + "px")
+  document.documentElement.style.setProperty("--mouse-y", e.clientY + "px")
+})
+*/
