@@ -1,0 +1,8 @@
+2026-04-20 20:28:16 [ERROR] [main.py:110] Model file not found at: models/best.pt
+2026-04-20 20:28:16 [ERROR] [main.py:920] System failed to start - model not found
+2026-04-21 01:50:09 [ERROR] [main.py:146] Failed to load model: VideoActionDetector.__init__() got an unexpected keyword argument 'pose_model_path'
+Traceback (most recent call last):
+  File "D:\桌面\campus_backend\main.py", line 139, in load_model
+    detector = VideoActionDetector(
+TypeError: VideoActionDetector.__init__() got an unexpected keyword argument 'pose_model_path'
+2026-04-21 01:50:09 [ERROR] [main.py:1017] System failed to start - model not found
